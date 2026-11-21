@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JavaScript Unit 4 Quiz</title>
+<style>
+:root{--bg:#f3f5fa;--card:#fff;--ink:#1a2236;--mute:#667085;--line:#dfe3ec;--ac:#3b5bdb;--ac2:#7048e8;--ok:#12803c;--okbg:#e6f6ec;--bad:#b42318;--badbg:#fdecea;--sh:0 10px 30px rgba(30,45,90,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f121a;--card:#181d28;--ink:#e8ebf2;--mute:#9aa3b5;--line:#2a3142;--ac:#7d9bff;--ac2:#a78bfa;--ok:#5fd68a;--okbg:#14301f;--bad:#ff8a80;--badbg:#3a1a18;--sh:0 10px 30px rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f121a;--card:#181d28;--ink:#e8ebf2;--mute:#9aa3b5;--line:#2a3142;--ac:#7d9bff;--ac2:#a78bfa;--ok:#5fd68a;--okbg:#14301f;--bad:#ff8a80;--badbg:#3a1a18;--sh:0 10px 30px rgba(0,0,0,.35);color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:radial-gradient(1200px 500px at 50% -200px,color-mix(in srgb,var(--ac) 14%,transparent),transparent),var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto;padding:22px 16px 56px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;margin-bottom:18px}
+.logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;display:grid;place-items:center;font-weight:800;font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:var(--sh)}
+h1{font-size:1.7rem;margin:0 0 6px;line-height:1.2}
+.mute{color:var(--mute)}
+.chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0}
+.chip{border:1px solid var(--line);border-radius:12px;padding:12px 14px}.chip b{display:block;font-size:1.3rem}
+ul.rules{padding-left:20px;color:var(--mute);margin:10px 0 20px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:10px;padding:12px 24px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;cursor:pointer;transition:transform .15s,box-shadow .15s,opacity .15s}
+.btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 16px rgba(59,91,219,.35)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.sec{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sec:hover:not(:disabled){box-shadow:none;border-color:var(--ac)}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.top{margin-bottom:14px}.meta{display:flex;justify-content:space-between;align-items:center;font-size:.9rem;margin-bottom:8px}
+.tag{background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac);font-weight:700;border-radius:99px;padding:3px 12px;font-size:.8rem}
+.track{height:8px;background:var(--line);border-radius:99px;overflow:hidden}.track i{display:block;height:100%;background:linear-gradient(90deg,var(--ac),var(--ac2));border-radius:99px;transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.q{font-size:1.1rem;font-weight:650;white-space:pre-wrap;margin:0 0 18px}
+.q.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1rem;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.opt{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:transparent;color:inherit;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:border-color .15s,transform .15s,background .15s}
+.opt:hover{border-color:var(--ac);transform:translateX(3px)}
+.opt .k{flex:none;width:28px;height:28px;border-radius:8px;border:1.5px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:.85rem;transition:.15s}
+.opt.sel{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 9%,transparent)}
+.opt.sel .k{background:var(--ac);border-color:var(--ac);color:#fff}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.slideR{animation:inR .35s cubic-bezier(.2,.8,.2,1)}.slideL{animation:inL .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes inR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+@keyframes inL{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.pop{animation:pop .5s cubic-bezier(.2,.8,.2,1) both}
+.task{background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--ac);border-radius:10px;padding:12px 14px;margin-bottom:12px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.92rem;margin-bottom:12px}.kv span:nth-child(odd){color:var(--mute);font-weight:600}
+code,.ex{font-family:ui-monospace,Menlo,Consolas,monospace}
+.ex{display:block;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin:4px 0;font-size:.88rem;overflow-x:auto;white-space:pre}
+textarea{width:100%;min-height:150px;resize:vertical;font:.92rem/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);border-radius:10px;padding:12px;tab-size:2}
+textarea:focus{border-color:var(--ac)}
+.run{display:flex;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+.out .t{font-size:.88rem;padding:6px 10px;border-radius:8px;margin-top:6px;font-family:ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap}
+.t.ok{background:var(--okbg);color:var(--ok)}.t.bad{background:var(--badbg);color:var(--bad)}
+.ring{position:relative;width:170px;height:170px;margin:6px auto}.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:12;stroke-linecap:round}.ring .bg{stroke:var(--line)}.ring .fg{stroke:url(#g);transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1)}
+.ring .n{position:absolute;inset:0;display:grid;place-content:center;text-align:center;font-size:2.2rem;font-weight:800;line-height:1.1}.ring .n small{font-size:.85rem;font-weight:500;color:var(--mute)}
+.pill{display:inline-block;padding:5px 22px;border-radius:99px;font-weight:800;letter-spacing:.05em}.pill.ok{background:var(--okbg);color:var(--ok)}.pill.bad{background:var(--badbg);color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:18px 0}
+.stats div{border:1px solid var(--line);border-radius:12px;padding:10px}.stats b{display:block;font-size:1.25rem}
+details{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--card)}
+summary{cursor:pointer;padding:12px 14px;font-weight:600;list-style:none;display:flex;gap:10px}summary::-webkit-details-marker{display:none}
+details>div{padding:0 14px 14px;font-size:.93rem}
+details pre{margin:6px 0;white-space:pre-wrap;font:.88rem/1.45 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);border-radius:8px;padding:8px 10px}
+.m{flex:none;font-weight:800}.m.ok{color:var(--ok)}.m.bad{color:var(--bad)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand"><div class="logo">JS</div><span>JavaScript Unit 4 · Practice Test</span></div>
+<div id="app"></div>
+</div>
+<script>
+const M=[
+["Arrow functions were introduced in which version of JavaScript?","ES6 (ES2015)","ES3","ES5","ES2020"],
+["const sq = n => n * n;\nconsole.log(sq(5));","25","10","5","undefined"],
+["const [a, , c] = [1, 2, 3];\nconsole.log(c);","3","2","1","undefined"],
+["Which line makes a copy of the array nums?","const copy = [...nums];","const copy = nums...;","const copy = ...nums;","const copy = [nums...];"],
+["const { name: n } = { name: \"Ana\" };\nconsole.log(n);","Ana","name","undefined","ReferenceError"],
+["const { a = 10 } = {};\nconsole.log(a);","10","undefined","null","0"],
+["In function f(...args), what is args?","An array of all passed arguments","A string","A single number","An object with keys"],
+["console.log([...[1, 2], ...[3]]);","[1, 2, 3]","[[1, 2], [3]]","[1, 2][3]","Error"],
+["A Promise can be in which states?","Pending, fulfilled or rejected","Open, closed or locked","Start, run or stop","Ready, done or failed"],
+["An async function always returns:","A Promise","A string","undefined","An array"],
+["The await keyword can be used inside:","An async function","Any normal function","Only a for loop","Only a class"],
+["Which block runs whether or not an error occurs?","finally","catch","try","throw"],
+["Which method handles a rejected promise?",".catch()",".stop()",".resolve()",".wait()"],
+["try { throw new Error(\"Oops\"); }\ncatch (err) { console.log(err.message); }","Oops","Error","err","undefined"],
+["console.log(1);\nsetTimeout(() => console.log(2), 0);\nconsole.log(3);","1 3 2","1 2 3","2 1 3","3 2 1"],
+["Promise.all([p1, p2]) rejects when:","Any one promise rejects","Both promises resolve","Only p1 rejects","It never rejects"],
+["const user = { name: \"Sam\" };\nconsole.log(user?.address?.city);","undefined","TypeError","null","\"\""],
+["Object.entries({ a: 1 }) returns:","[[\"a\", 1]]","[\"a\"]","[1]","{ a: 1 }"],
+["Object.keys({ a: 1, b: 2 }) returns:","[\"a\", \"b\"]","[1, 2]","[[\"a\", 1], [\"b\", 2]]","2"],
+["Object.assign({}, { a: 1 }, { b: 2 }) gives:","{ a: 1, b: 2 }","{ a: 1 }","{ b: 2 }","[{ a: 1 }, { b: 2 }]"],
+["What does Object.freeze(obj) do?","Stops adding, removing or changing properties","Deletes the object","Converts it to an array","Copies the object"],
+["console.log(0 ?? 5);","0","5","null","undefined"],
+["Which removes the property age from person?","delete person.age","remove person.age","person.age = delete","person.delete(age)"],
+["What does map() return?","A new array of the same length","A single value","The first match","Nothing (undefined)"],
+["[1, 2, 3].map(x => x * 2)","[2, 4, 6]","[1, 2, 3]","12","[1, 4, 9]"],
+["[1, 2, 3, 4].filter(x => x % 2 === 0)","[2, 4]","[1, 3]","[1, 2, 3, 4]","2"],
+["[1, 2, 3, 4].reduce((a, b) => a + b, 0)","10","4","[10]","0"],
+["[1, 2, 3].find(x => x > 5) returns:","undefined","-1","[]","null"],
+["In reduce(callback, 0), the 0 is:","The initial accumulator value","The index","The array length","The final result"],
+["[1, 2, 3].findIndex(x => x > 5) returns:","-1","undefined","0","null"]
+];
+// [question, fnName, params, [[args, expected]...], sample solution]
+const P=[
+["Create an arrow function named add. It receives two numbers (a and b) and must return their sum.","add","a, b",[[[2,3],5],[[-1,1],0]],"const add = (a, b) => a + b;"],
+["Create a function named square. It receives one number (n) and must return n multiplied by itself.","square","n",[[[4],16],[[0],0]],"const square = n => n * n;"],
+["Create a function named isEven. It receives a number (n). Return true if n is even, otherwise return false.","isEven","n",[[[4],true],[[7],false]],"const isEven = n => n % 2 === 0;"],
+["Create a function named first. It receives an array (arr). Use array destructuring to take the first item and return it.","first","arr",[[[[5,6]],5],[[["a"]],"a"]],"const first = arr => { const [x] = arr; return x; };"],
+["Create a function named sumAll that uses a rest parameter (...nums) to accept any number of numbers. Return their total. If no numbers are given, return 0.","sumAll","...nums",[[[1,2,3],6],[[],0]],"const sumAll = (...nums) => nums.reduce((a, b) => a + b, 0);"],
+["Create a function named merge. It receives two arrays (a and b). Use the spread operator (...) to return one new array: all items of a followed by all items of b.","merge","a, b",[[[[1],[2,3]],[1,2,3]],[[[],[4]],[4]]],"const merge = (a, b) => [...a, ...b];"],
+["Create a function named getName. It receives an object (person) that has a name property. Use object destructuring to get name and return it.","getName","person",[[[{name:"Ravi"}],"Ravi"],[[{name:"Mia",age:3}],"Mia"]],"const getName = ({ name }) => name;"],
+["Create a function named doubleAll. It receives an array of numbers (arr). Use map() to return a new array where every number is multiplied by 2.","doubleAll","arr",[[[[1,2,3]],[2,4,6]],[[[]],[]]],"const doubleAll = arr => arr.map(x => x * 2);"],
+["Create a function named evens. It receives an array of numbers (arr). Use filter() to return a new array containing only the even numbers.","evens","arr",[[[[1,2,3,4]],[2,4]],[[[1,3]],[]]],"const evens = arr => arr.filter(x => x % 2 === 0);"],
+["Create a function named total. It receives an array of numbers (arr). Use reduce() to add all the numbers and return the sum (0 for an empty array).","total","arr",[[[[1,2,3,4]],10],[[[]],0]],"const total = arr => arr.reduce((a, b) => a + b, 0);"],
+["Create a function named firstAbove. It receives an array (arr) and a number (n). Use find() to return the first item that is greater than n. If no item matches, return undefined.","firstAbove","arr, n",[[[[1,5,9],4],5],[[[1,2],4],undefined]],"const firstAbove = (arr, n) => arr.find(x => x > n);"],
+["Create a function named getCity. It receives an object (user) that may have an address object with a city. Use optional chaining (?.) to return the city, or undefined if address is missing.","getCity","user",[[[{address:{city:"Chennai"}}],"Chennai"],[[{}],undefined]],"const getCity = user => user?.address?.city;"],
+["Create a function named countKeys. It receives an object (obj). Return how many properties (keys) the object has. Hint: Object.keys().","countKeys","obj",[[[{a:1,b:2}],2],[[{}],0]],"const countKeys = obj => Object.keys(obj).length;"],
+["Create a function named mergeObj. It receives two objects (a and b). Use the spread operator to return one new object with the properties of both. If a key exists in both, b’s value wins.","mergeObj","a, b",[[[{x:1},{y:2}],{x:1,y:2}],[[{x:1},{x:9}],{x:9}]],"const mergeObj = (a, b) => ({ ...a, ...b });"],
+["Create a function named upperAll. It receives an array of strings (arr). Use map() to return a new array with every string in UPPER CASE.","upperAll","arr",[[[["a","bc"]],["A","BC"]]],"const upperAll = arr => arr.map(s => s.toUpperCase());"],
+["Create a function named maxOf. It receives an array of numbers (arr). Use reduce() to find and return the largest number.","maxOf","arr",[[[[3,9,2]],9],[[[-1,-5]],-1]],"const maxOf = arr => arr.reduce((a, b) => (b > a ? b : a));"],
+["Create an async function named getData with no parameters. It must return the text \"Hello\" (the result is a Promise that resolves to \"Hello\").","getData","",[[[],"Hello"]],"const getData = async () => \"Hello\";"],
+["Create a function named safeDivide. It receives two numbers (a and b) and returns a divided by b. If b is 0, throw a new Error with the message \"Cannot divide by zero\".","safeDivide","a, b",[[[10,2],5],[[1,0],{err:"Cannot divide by zero"}]],"const safeDivide = (a, b) => {\n  if (b === 0) throw new Error(\"Cannot divide by zero\");\n  return a / b;\n};"],
+["Create a function named safeParse. It receives a JSON string (str). Use try/catch: return JSON.parse(str) when valid, or null when the JSON is invalid.","safeParse","str",[[['{"a":1}'],{a:1}],[["{bad"],null]],"const safeParse = str => {\n  try { return JSON.parse(str); }\n  catch (e) { return null; }\n};"],
+["Create a function named totalPrice. It receives an array of items, each like { price: 10, qty: 2 }. Return the sum of price × qty for all items (0 for an empty array).","totalPrice","items",[[[[{price:10,qty:2},{price:5,qty:1}]],25],[[[]],0]],"const totalPrice = items => items.reduce((s, i) => s + i.price * i.qty, 0);"]
+];
+
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const E=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const J=v=>v===undefined?"undefined":JSON.stringify(v);
+const fmt=(n,a,e)=>`${n}(${a.map(J).join(", ")})  →  ${e&&e.err?"throws Error: "+e.err:J(e)}`;
+const items=[...sh(M).map(m=>({t:"m",q:m[0],c:m[1],o:sh(m.slice(1)),a:null})),
+ ...sh(P).map(p=>({t:"p",q:p[0],n:p[1],pa:p[2],tt:p[3],s:p[4],code:(p[1]==="getData"?"const getData = async () => {\n  // write your code here\n};":"const "+p[1]+" = ("+p[2]+") => {\n  // write your code here\n};"),out:""}))];
+items.forEach(x=>{if(x.t==="p")x.start=x.code});
+const N=items.length,app=document.getElementById("app");let i=0,dir=1,done=false;
+const answered=x=>x.t==="m"?x.a!==null:x.code!==x.start;
+async function runTests(x){const rows=[];let ok=true;
+ try{const f=new Function(x.code+"\nreturn "+x.n+";")();if(typeof f!=="function")throw new Error("Define a function named "+x.n);
+  for(const[a,e]of x.tt){let r;try{r=await f(...a)}catch(z){r={err:z.message}}const p=J(r)===J(e);if(!p)ok=false;rows.push(`<div class="t ${p?"ok":"bad"}">${p?"✓":"✗"} ${E(fmt(x.n,a,e))}${p?"":"\n   your output: "+E(r&&r.err?"throws Error: "+r.err:J(r))}</div>`)}
+ }catch(z){ok=false;rows.push(`<div class="t bad">✗ ${E(z.message)}</div>`)}
+ return{ok,html:rows.join("")}}
+function start(){app.innerHTML=`<div class="card pop"><h1>Ready to test your JavaScript?</h1><p class="mute">Arrow functions, destructuring, spread &amp; rest · Async &amp; error handling · Objects &amp; optional chaining · map, filter, reduce &amp; find</p>
+<div class="chips"><div class="chip"><b>30</b>Multiple-choice</div><div class="chip"><b>20</b>Easy programs</div><div class="chip"><b>50</b>Total marks</div></div>
+<ul class="rules"><li>One question at a time — press <b>Next</b> to move on, or <b>Previous</b> to go back.</li><li>MCQ: 1 mark each. Programs: 1 mark if all test cases pass.</li><li>For programs, use <b>Run tests</b> to check your code before moving on.</li><li>Question order is shuffled every time. Pass mark: 50%.</li></ul>
+<button class="btn" id="go">Start test →</button></div>`;document.getElementById("go").onclick=()=>{i=0;draw()}}
+function draw(){const x=items[i],last=i===N-1;let body;
+ if(x.t==="m"){body=`<div class="q${/[=(\[{]/.test(x.q)&&x.q.length<130?" code":""}">${E(x.q)}</div>`+x.o.map((o,j)=>`<button class="opt${x.a===j?" sel":""}" data-j="${j}"><span class="k">${"ABCD"[j]}</span><span>${E(o)}</span></button>`).join("")}
+ else{const ex=x.tt.slice(0,2).map(([a,e])=>`<code class="ex">${E(fmt(x.n,a,e))}</code>`).join("");
+  body=`<div class="task"><b>Task:</b> ${E(x.q)}</div><div class="kv"><span>Function name</span><code>${x.n}</code><span>Input</span><code>${x.pa?E(x.pa):"(none)"}</code></div><div class="mute" style="font-size:.9rem">Examples (call → expected result):</div>${ex}
+  <div class="mute" style="margin:12px 0 6px;font-size:.9rem">Write your code:</div><textarea id="code" spellcheck="false" autocapitalize="off">${E(x.code)}</textarea><div class="run"><button class="btn sec" id="run">▶ Run tests</button><span class="mute" style="font-size:.85rem">Tab key indents</span></div><div class="out" id="out">${x.out}</div>`}
+ app.innerHTML=`<div class="top"><div class="meta"><span class="tag">${x.t==="m"?"PART A · MCQ":"PART B · PROGRAM"}</span><span class="mute">Question <b>${i+1}</b> of ${N} · ${items.filter(answered).length} answered</span></div><div class="track"><i style="width:${i/N*100}%"></i></div></div>
+ <div class="card ${dir>0?"slideR":"slideL"}">${body}<div class="nav"><button class="btn sec" id="pv" ${i?"":"disabled"}>← Previous</button><button class="btn" id="nx">${last?"Finish test ✓":"Next →"}</button></div></div>`;
+ requestAnimationFrame(()=>app.querySelector(".track i").style.width=(i+1)/N*100+"%");
+ document.getElementById("pv").onclick=()=>{dir=-1;i--;draw()};
+ document.getElementById("nx").onclick=()=>last?finish():(dir=1,i++,draw(),scrollTo({top:0,behavior:"smooth"}));
+ if(x.t==="m")app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{x.a=+b.dataset.j;app.querySelectorAll(".opt").forEach((o,k)=>o.classList.toggle("sel",k===x.a))});
+ else{const ta=document.getElementById("code");ta.oninput=()=>x.code=ta.value;
+  ta.onkeydown=e=>{if(e.key==="Tab"){e.preventDefault();ta.setRangeText("  ",ta.selectionStart,ta.selectionEnd,"end");x.code=ta.value}};
+  document.getElementById("run").onclick=async()=>{const o=document.getElementById("out");o.innerHTML='<div class="t">Running…</div>';const r=await runTests(x);x.out=r.html;o.innerHTML=r.html}}}
+document.addEventListener("keydown",e=>{const x=items[i];if(done||!x||x.t!=="m"||!document.querySelector(".opt"))return;const k="abcd".indexOf(e.key.toLowerCase()),n=+e.key-1,j=k>=0?k:n;if(e.key.length===1&&j>=0&&j<4){document.querySelectorAll(".opt")[j].click()}else if(e.key==="ArrowRight"||e.key==="Enter")document.getElementById("nx").click()});
+async function finish(){const un=items.filter(x=>!answered(x)).length;if(un&&!confirm(un+" question(s) are unanswered and will score 0. Finish anyway?"))return;
+ done=true;app.innerHTML='<div class="card pop" style="text-align:center">Checking your answers…</div>';let ma=0,pa=0;
+ for(const x of items){if(x.t==="m"){x.ok=x.o[x.a]===x.c;if(x.ok)ma++}else{x.ok=(await runTests(x)).ok;if(x.ok)pa++}}
+ const tot=ma+pa,pct=Math.round(tot/N*100),pass=pct>=50,g=pct>=90?"A+":pct>=80?"A":pct>=70?"B":pct>=60?"C":pct>=50?"D":"F",C=2*Math.PI*72;
+ app.innerHTML=`<div class="card pop" style="text-align:center"><h1>${pass?"Well done! 🎉":"Keep practising 💪"}</h1><p class="mute">Your test is complete</p>
+ <div class="ring"><svg width="170" height="170" viewBox="0 0 170 170"><defs><linearGradient id="g"><stop offset="0" stop-color="#3b5bdb"/><stop offset="1" stop-color="#7048e8"/></linearGradient></defs><circle class="bg" cx="85" cy="85" r="72"/><circle class="fg" id="fg" cx="85" cy="85" r="72" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg><div class="n"><span id="cnt">0</span><small>out of ${N}</small></div></div>
+ <div class="pill ${pass?"ok":"bad"}">${pass?"PASS":"FAIL"}</div>
+ <div class="stats"><div><b>${pct}%</b>Percentage</div><div><b>${g}</b>Grade</div><div><b>${ma} / 30</b>MCQ marks</div><div><b>${pa} / 20</b>Program marks</div></div>
+ <button class="btn" id="re">↻ Retake (new order)</button></div><h2 style="margin:26px 0 12px">Review your answers</h2>`+
+ items.map((x,k)=>`<details class="pop" ${x.ok?"":"open"}><summary><span class="m ${x.ok?"ok":"bad"}">${x.ok?"✓":"✗"}</span><span>${k+1}. ${E(x.q.length>90?x.q.slice(0,90)+"…":x.q)}</span></summary><div>`+(x.t==="m"?`<pre>${E(x.q)}</pre>Your answer: <b>${x.a===null?"not answered":E(x.o[x.a])}</b><br>Correct answer: <b>${E(x.c)}</b>`:`<pre>${E(x.q)}</pre>Your code:<pre>${E(x.code)}</pre>Sample solution:<pre>${E(x.s)}</pre>`)+`</div></details>`).join("");
+ document.getElementById("re").onclick=()=>location.reload();scrollTo({top:0});
+ requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById("fg").style.strokeDashoffset=C*(1-tot/N)));
+ let c=0;const t=setInterval(()=>{c++;document.getElementById("cnt").textContent=c;if(c>=tot)clearInterval(t)},tot?1300/tot:0)}
+start();
+</script>
+</body>
+</html>
