@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>JavaScript Unit 4 Quiz</title>
+<title>JavaScript Unit 4 Quiz – Set 2</title>
 <style>
 :root{--bg:#f3f5fa;--card:#fff;--ink:#1a2236;--mute:#667085;--line:#dfe3ec;--ac:#3b5bdb;--ac2:#7048e8;--ok:#12803c;--okbg:#e6f6ec;--bad:#b42318;--badbg:#fdecea;--sh:0 10px 30px rgba(30,45,90,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f121a;--card:#181d28;--ink:#e8ebf2;--mute:#9aa3b5;--line:#2a3142;--ac:#7d9bff;--ac2:#a78bfa;--ok:#5fd68a;--okbg:#14301f;--bad:#ff8a80;--badbg:#3a1a18;--sh:0 10px 30px rgba(0,0,0,.35);color-scheme:dark}}
@@ -36,7 +36,6 @@ button:focus-visible,textarea:focus-visible{outline:2px solid var(--ac);outline-
 .opt .k{flex:none;width:28px;height:28px;border-radius:8px;border:1.5px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:.85rem;transition:.15s}
 .opt.sel{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 9%,transparent)}
 .opt.sel .k{background:var(--ac);border-color:var(--ac);color:#fff}
-.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.bad{border-color:var(--bad);background:var(--badbg)}
 .nav{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
 .slideR{animation:inR .35s cubic-bezier(.2,.8,.2,1)}.slideL{animation:inL .35s cubic-bezier(.2,.8,.2,1)}
 @keyframes inR{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
@@ -68,72 +67,73 @@ details pre{margin:6px 0;white-space:pre-wrap;font:.88rem/1.45 ui-monospace,Menl
 </head>
 <body>
 <div class="wrap">
-<div class="brand"><div class="logo">JS</div><span>JavaScript Unit 4 · Practice Test</span></div>
+<div class="brand"><div class="logo">JS</div><span>JavaScript Unit 4 · Practice Test 2</span></div>
 <div id="app"></div>
 </div>
 <script>
 const M=[
-["Arrow functions were introduced in which version of JavaScript?","ES6 (ES2015)","ES3","ES5","ES2020"],
-["const sq = n => n * n;\nconsole.log(sq(5));","25","10","5","undefined"],
-["const [a, , c] = [1, 2, 3];\nconsole.log(c);","3","2","1","undefined"],
-["Which line makes a copy of the array nums?","const copy = [...nums];","const copy = nums...;","const copy = ...nums;","const copy = [nums...];"],
-["const { name: n } = { name: \"Ana\" };\nconsole.log(n);","Ana","name","undefined","ReferenceError"],
-["const { a = 10 } = {};\nconsole.log(a);","10","undefined","null","0"],
-["In function f(...args), what is args?","An array of all passed arguments","A string","A single number","An object with keys"],
-["console.log([...[1, 2], ...[3]]);","[1, 2, 3]","[[1, 2], [3]]","[1, 2][3]","Error"],
-["A Promise can be in which states?","Pending, fulfilled or rejected","Open, closed or locked","Start, run or stop","Ready, done or failed"],
-["An async function always returns:","A Promise","A string","undefined","An array"],
-["The await keyword can be used inside:","An async function","Any normal function","Only a for loop","Only a class"],
-["Which block runs whether or not an error occurs?","finally","catch","try","throw"],
-["Which method handles a rejected promise?",".catch()",".stop()",".resolve()",".wait()"],
-["try { throw new Error(\"Oops\"); }\ncatch (err) { console.log(err.message); }","Oops","Error","err","undefined"],
-["console.log(1);\nsetTimeout(() => console.log(2), 0);\nconsole.log(3);","1 3 2","1 2 3","2 1 3","3 2 1"],
-["Promise.all([p1, p2]) rejects when:","Any one promise rejects","Both promises resolve","Only p1 rejects","It never rejects"],
-["const user = { name: \"Sam\" };\nconsole.log(user?.address?.city);","undefined","TypeError","null","\"\""],
-["Object.entries({ a: 1 }) returns:","[[\"a\", 1]]","[\"a\"]","[1]","{ a: 1 }"],
-["Object.keys({ a: 1, b: 2 }) returns:","[\"a\", \"b\"]","[1, 2]","[[\"a\", 1], [\"b\", 2]]","2"],
-["Object.assign({}, { a: 1 }, { b: 2 }) gives:","{ a: 1, b: 2 }","{ a: 1 }","{ b: 2 }","[{ a: 1 }, { b: 2 }]"],
-["What does Object.freeze(obj) do?","Stops adding, removing or changing properties","Deletes the object","Converts it to an array","Copies the object"],
-["console.log(0 ?? 5);","0","5","null","undefined"],
-["Which removes the property age from person?","delete person.age","remove person.age","person.age = delete","person.delete(age)"],
-["What does map() return?","A new array of the same length","A single value","The first match","Nothing (undefined)"],
-["[1, 2, 3].map(x => x * 2)","[2, 4, 6]","[1, 2, 3]","12","[1, 4, 9]"],
-["[1, 2, 3, 4].filter(x => x % 2 === 0)","[2, 4]","[1, 3]","[1, 2, 3, 4]","2"],
-["[1, 2, 3, 4].reduce((a, b) => a + b, 0)","10","4","[10]","0"],
-["[1, 2, 3].find(x => x > 5) returns:","undefined","-1","[]","null"],
-["In reduce(callback, 0), the 0 is:","The initial accumulator value","The index","The array length","The final result"],
-["[1, 2, 3].findIndex(x => x > 5) returns:","-1","undefined","0","null"]
+["Which symbol is used in an arrow function?","=>","->","==>","::"],
+["const add = (a, b) => a + b;\nconsole.log(add(2, 3));","5","23","undefined","NaN"],
+["const [x, y] = [10, 20];\nconsole.log(y);","20","10","undefined","[10, 20]"],
+["const { age } = { age: 25 };\nconsole.log(age);","25","age","undefined","Error"],
+["What do the three dots do in [...a, 4]?","Spread the items of a","Delete a","Compare values","Create a loop"],
+["function f(...nums) { return nums.length; }\nconsole.log(f(1, 2, 3));","3","1","0","undefined"],
+["Which keyword pauses an async function until a promise settles?","await","pause","yield","stop"],
+["Which block catches an error?","catch","finally","else","throw"],
+["Which keyword creates an error on purpose?","throw","raise","error","try"],
+["[1, 2, 3].map(x => x + 1)","[2, 3, 4]","[1, 2, 3]","6","[1, 3, 5]"],
+["[5, 8, 12].filter(x => x > 6)","[8, 12]","[5]","[5, 8, 12]","2"],
+["[2, 3].reduce((a, b) => a * b, 1)","6","5","1","[6]"],
+["[4, 7, 9].find(x => x > 5) returns:","7","4","9","[7]"],
+["Object.keys({ x: 1, y: 2 }).length","2","1","0","undefined"],
+["const p = { n: 1 };\nconsole.log(p?.q?.r);","undefined","TypeError","null","0"],
+["console.log(null ?? \"hi\");","hi","null","undefined","\"\""],
+["What does Promise.resolve(5) create?","A promise fulfilled with 5","A plain number 5","An error","An array"],
+["Which method runs when a promise succeeds?",".then()",".catch()",".fail()",".error()"],
+["const o = { a: 1 };\nconst c = { ...o, b: 2 };\nconsole.log(c.b);","2","1","undefined","Error"],
+["Which method returns -1 when no item matches?","findIndex()","find()","filter()","map()"]
 ];
+const AS=["getNumber","asyncAdd"];
 // [question, fnName, params, [[args, expected]...], sample solution]
 const P=[
-["Create an arrow function named add. It receives two numbers (a and b) and must return their sum.","add","a, b",[[[2,3],5],[[-1,1],0]],"const add = (a, b) => a + b;"],
-["Create a function named square. It receives one number (n) and must return n multiplied by itself.","square","n",[[[4],16],[[0],0]],"const square = n => n * n;"],
-["Create a function named isEven. It receives a number (n). Return true if n is even, otherwise return false.","isEven","n",[[[4],true],[[7],false]],"const isEven = n => n % 2 === 0;"],
-["Create a function named first. It receives an array (arr). Use array destructuring to take the first item and return it.","first","arr",[[[[5,6]],5],[[["a"]],"a"]],"const first = arr => { const [x] = arr; return x; };"],
-["Create a function named sumAll that uses a rest parameter (...nums) to accept any number of numbers. Return their total. If no numbers are given, return 0.","sumAll","...nums",[[[1,2,3],6],[[],0]],"const sumAll = (...nums) => nums.reduce((a, b) => a + b, 0);"],
-["Create a function named merge. It receives two arrays (a and b). Use the spread operator (...) to return one new array: all items of a followed by all items of b.","merge","a, b",[[[[1],[2,3]],[1,2,3]],[[[],[4]],[4]]],"const merge = (a, b) => [...a, ...b];"],
-["Create a function named getName. It receives an object (person) that has a name property. Use object destructuring to get name and return it.","getName","person",[[[{name:"Ravi"}],"Ravi"],[[{name:"Mia",age:3}],"Mia"]],"const getName = ({ name }) => name;"],
-["Create a function named doubleAll. It receives an array of numbers (arr). Use map() to return a new array where every number is multiplied by 2.","doubleAll","arr",[[[[1,2,3]],[2,4,6]],[[[]],[]]],"const doubleAll = arr => arr.map(x => x * 2);"],
-["Create a function named evens. It receives an array of numbers (arr). Use filter() to return a new array containing only the even numbers.","evens","arr",[[[[1,2,3,4]],[2,4]],[[[1,3]],[]]],"const evens = arr => arr.filter(x => x % 2 === 0);"],
-["Create a function named total. It receives an array of numbers (arr). Use reduce() to add all the numbers and return the sum (0 for an empty array).","total","arr",[[[[1,2,3,4]],10],[[[]],0]],"const total = arr => arr.reduce((a, b) => a + b, 0);"],
-["Create a function named firstAbove. It receives an array (arr) and a number (n). Use find() to return the first item that is greater than n. If no item matches, return undefined.","firstAbove","arr, n",[[[[1,5,9],4],5],[[[1,2],4],undefined]],"const firstAbove = (arr, n) => arr.find(x => x > n);"],
-["Create a function named getCity. It receives an object (user) that may have an address object with a city. Use optional chaining (?.) to return the city, or undefined if address is missing.","getCity","user",[[[{address:{city:"Chennai"}}],"Chennai"],[[{}],undefined]],"const getCity = user => user?.address?.city;"],
-["Create a function named countKeys. It receives an object (obj). Return how many properties (keys) the object has. Hint: Object.keys().","countKeys","obj",[[[{a:1,b:2}],2],[[{}],0]],"const countKeys = obj => Object.keys(obj).length;"],
-["Create a function named mergeObj. It receives two objects (a and b). Use the spread operator to return one new object with the properties of both. If a key exists in both, b’s value wins.","mergeObj","a, b",[[[{x:1},{y:2}],{x:1,y:2}],[[{x:1},{x:9}],{x:9}]],"const mergeObj = (a, b) => ({ ...a, ...b });"],
-["Create a function named upperAll. It receives an array of strings (arr). Use map() to return a new array with every string in UPPER CASE.","upperAll","arr",[[[["a","bc"]],["A","BC"]]],"const upperAll = arr => arr.map(s => s.toUpperCase());"],
-["Create a function named maxOf. It receives an array of numbers (arr). Use reduce() to find and return the largest number.","maxOf","arr",[[[[3,9,2]],9],[[[-1,-5]],-1]],"const maxOf = arr => arr.reduce((a, b) => (b > a ? b : a));"],
-["Create an async function named getData with no parameters. It must return the text \"Hello\" (the result is a Promise that resolves to \"Hello\").","getData","",[[[],"Hello"]],"const getData = async () => \"Hello\";"],
-["Create a function named safeDivide. It receives two numbers (a and b) and returns a divided by b. If b is 0, throw a new Error with the message \"Cannot divide by zero\".","safeDivide","a, b",[[[10,2],5],[[1,0],{err:"Cannot divide by zero"}]],"const safeDivide = (a, b) => {\n  if (b === 0) throw new Error(\"Cannot divide by zero\");\n  return a / b;\n};"],
-["Create a function named safeParse. It receives a JSON string (str). Use try/catch: return JSON.parse(str) when valid, or null when the JSON is invalid.","safeParse","str",[[['{"a":1}'],{a:1}],[["{bad"],null]],"const safeParse = str => {\n  try { return JSON.parse(str); }\n  catch (e) { return null; }\n};"],
-["Create a function named totalPrice. It receives an array of items, each like { price: 10, qty: 2 }. Return the sum of price × qty for all items (0 for an empty array).","totalPrice","items",[[[[{price:10,qty:2},{price:5,qty:1}]],25],[[[]],0]],"const totalPrice = items => items.reduce((s, i) => s + i.price * i.qty, 0);"]
+["Create an arrow function named addThree. It receives three numbers (a, b and c) and returns their sum.","addThree","a, b, c",[[[1,2,3],6],[[0,0,5],5]],"const addThree = (a, b, c) => a + b + c;"],
+["Create a function named double. It receives a number (n) and returns n multiplied by 2.","double","n",[[[4],8],[[-2],-4]],"const double = n => n * 2;"],
+["Create a function named isPositive. It receives a number (n). Return true if n is greater than 0, otherwise false.","isPositive","n",[[[5],true],[[-1],false]],"const isPositive = n => n > 0;"],
+["Create a function named greet. It receives a name (name) and returns \"Hello, \" followed by the name. Example: Hello, Ravi","greet","name",[[["Ravi"],"Hello, Ravi"],[["Mia"],"Hello, Mia"]],"const greet = name => `Hello, ${name}`;"],
+["Create a function named last. It receives an array (arr) and returns its last item.","last","arr",[[[[1,2,3]],3],[[["a","b"]],"b"]],"const last = arr => arr[arr.length - 1];"],
+["Create a function named second. It receives an array (arr). Use array destructuring to return the second item.","second","arr",[[[[7,8,9]],8],[[["x","y"]],"y"]],"const second = arr => { const [, b] = arr; return b; };"],
+["Create a function named getAge. It receives an object (person) with an age property. Use object destructuring to return age.","getAge","person",[[[{age:20}],20],[[{name:"Sam",age:9}],9]],"const getAge = ({ age }) => age;"],
+["Create a function named countArgs that uses a rest parameter (...args) and returns how many arguments were passed.","countArgs","...args",[[[1,2,3],3],[[],0]],"const countArgs = (...args) => args.length;"],
+["Create a function named joinArrays. It receives two arrays (a and b). Use the spread operator to return one new array with all items of a then b.","joinArrays","a, b",[[[[1,2],[3]],[1,2,3]],[[[],[]],[]]],"const joinArrays = (a, b) => [...a, ...b];"],
+["Create a function named copyArray. It receives an array (arr). Use the spread operator to return a copy of it.","copyArray","arr",[[[[1,2]],[1,2]],[[[]],[]]],"const copyArray = arr => [...arr];"],
+["Create a function named addActive. It receives an object (obj). Use spread to return a new object with all properties of obj plus active: true.","addActive","obj",[[[{a:1}],{a:1,active:true}],[[{}],{active:true}]],"const addActive = obj => ({ ...obj, active: true });"],
+["Create a function named doubleAll. It receives an array of numbers (arr). Use map() to return a new array with every number doubled.","doubleAll","arr",[[[[1,2,3]],[2,4,6]],[[[]],[]]],"const doubleAll = arr => arr.map(x => x * 2);"],
+["Create a function named onlyOdd. It receives an array of numbers (arr). Use filter() to return only the odd numbers.","onlyOdd","arr",[[[[1,2,3,4]],[1,3]],[[[2,4]],[]]],"const onlyOdd = arr => arr.filter(x => x % 2 !== 0);"],
+["Create a function named sumArray. It receives an array of numbers (arr). Use reduce() to return the sum (0 for an empty array).","sumArray","arr",[[[[1,2,3]],6],[[[]],0]],"const sumArray = arr => arr.reduce((a, b) => a + b, 0);"],
+["Create a function named firstNegative. It receives an array of numbers (arr). Use find() to return the first number below 0, or undefined if none.","firstNegative","arr",[[[[3,-2,-5]],-2],[[[1,2]],undefined]],"const firstNegative = arr => arr.find(x => x < 0);"],
+["Create a function named lengths. It receives an array of strings (arr). Use map() to return an array with the length of each string.","lengths","arr",[[[["hi","hello"]],[2,5]],[[[]],[]]],"const lengths = arr => arr.map(s => s.length);"],
+["Create a function named indexOfBig. It receives an array of numbers (arr). Use findIndex() to return the index of the first number greater than 10 (-1 if none).","indexOfBig","arr",[[[[1,20,30]],1],[[[1,2]],-1]],"const indexOfBig = arr => arr.findIndex(x => x > 10);"],
+["Create a function named getCountry. It receives an object (user) that may have an address object with a country. Use optional chaining (?.) to return the country, or undefined if missing.","getCountry","user",[[[{address:{country:"India"}}],"India"],[[{}],undefined]],"const getCountry = user => user?.address?.country;"],
+["Create a function named defaultName. It receives a value (name). Use the ?? operator to return name, or \"Guest\" if name is null or undefined.","defaultName","name",[[[null],"Guest"],[["Ana"],"Ana"]],"const defaultName = name => name ?? \"Guest\";"],
+["Create a function named getKeys. It receives an object (obj) and returns an array of its keys.","getKeys","obj",[[[{a:1,b:2}],["a","b"]],[[{}],[]]],"const getKeys = obj => Object.keys(obj);"],
+["Create a function named getValues. It receives an object (obj) and returns an array of its values.","getValues","obj",[[[{a:1,b:2}],[1,2]],[[{}],[]]],"const getValues = obj => Object.values(obj);"],
+["Create a function named pairs. It receives an object (obj) and returns its [key, value] pairs. Hint: Object.entries().","pairs","obj",[[[{a:1}],[["a",1]]],[[{}],[]]],"const pairs = obj => Object.entries(obj);"],
+["Create a function named isEmptyObj. It receives an object (obj). Return true if it has no keys, otherwise false.","isEmptyObj","obj",[[[{}],true],[[{a:1}],false]],"const isEmptyObj = obj => Object.keys(obj).length === 0;"],
+["Create an async function named getNumber with no parameters. It must return the number 42.","getNumber","",[[[],42]],"const getNumber = async () => 42;"],
+["Create an async function named asyncAdd. It receives two numbers (a and b) and returns their sum.","asyncAdd","a, b",[[[2,3],5],[[10,-4],6]],"const asyncAdd = async (a, b) => a + b;"],
+["Create a function named safeDivide. It receives two numbers (a and b) and returns a / b. If b is 0, throw a new Error with the message \"Cannot divide by zero\".","safeDivide","a, b",[[[10,2],5],[[1,0],{err:"Cannot divide by zero"}]],"const safeDivide = (a, b) => {\n  if (b === 0) throw new Error(\"Cannot divide by zero\");\n  return a / b;\n};"],
+["Create a function named safeParse. It receives a JSON string (str). Use try/catch: return JSON.parse(str) if valid, or null if invalid.","safeParse","str",[[['{"a":1}'],{a:1}],[["{bad"],null]],"const safeParse = str => {\n  try { return JSON.parse(str); }\n  catch (e) { return null; }\n};"],
+["Create a function named checkAge. It receives a number (age). If age is below 18, throw a new Error with the message \"Too young\". Otherwise return \"OK\".","checkAge","age",[[[20],"OK"],[[10],{err:"Too young"}]],"const checkAge = age => {\n  if (age < 18) throw new Error(\"Too young\");\n  return \"OK\";\n};"],
+["Create a function named totalPrice. It receives an array of objects like { price: 10 }. Use reduce() to return the sum of all prices (0 for an empty array).","totalPrice","items",[[[[{price:10},{price:5}]],15],[[[]],0]],"const totalPrice = items => items.reduce((s, i) => s + i.price, 0);"],
+["Create a function named minOf. It receives an array of numbers (arr). Use the spread operator with Math.min() to return the smallest number.","minOf","arr",[[[[4,2,9]],2],[[[-1,3]],-1]],"const minOf = arr => Math.min(...arr);"]
 ];
-
+const MN=M.length,PN=P.length;
 const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
 const E=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const J=v=>v===undefined?"undefined":JSON.stringify(v);
 const fmt=(n,a,e)=>`${n}(${a.map(J).join(", ")})  →  ${e&&e.err?"throws Error: "+e.err:J(e)}`;
 const items=[...sh(M).map(m=>({t:"m",q:m[0],c:m[1],o:sh(m.slice(1)),a:null})),
- ...sh(P).map(p=>({t:"p",q:p[0],n:p[1],pa:p[2],tt:p[3],s:p[4],code:(p[1]==="getData"?"const getData = async () => {\n  // write your code here\n};":"const "+p[1]+" = ("+p[2]+") => {\n  // write your code here\n};"),out:""}))];
+ ...sh(P).map(p=>({t:"p",q:p[0],n:p[1],pa:p[2],tt:p[3],s:p[4],code:"const "+p[1]+" = "+(AS.includes(p[1])?"async ":"")+"("+p[2]+") => {\n  // write your code here\n};",out:""}))];
 items.forEach(x=>{if(x.t==="p")x.start=x.code});
 const N=items.length,app=document.getElementById("app");let i=0,dir=1,done=false;
 const answered=x=>x.t==="m"?x.a!==null:x.code!==x.start;
@@ -142,8 +142,8 @@ async function runTests(x){const rows=[];let ok=true;
   for(const[a,e]of x.tt){let r;try{r=await f(...a)}catch(z){r={err:z.message}}const p=J(r)===J(e);if(!p)ok=false;rows.push(`<div class="t ${p?"ok":"bad"}">${p?"✓":"✗"} ${E(fmt(x.n,a,e))}${p?"":"\n   your output: "+E(r&&r.err?"throws Error: "+r.err:J(r))}</div>`)}
  }catch(z){ok=false;rows.push(`<div class="t bad">✗ ${E(z.message)}</div>`)}
  return{ok,html:rows.join("")}}
-function start(){app.innerHTML=`<div class="card pop"><h1>Ready to test your JavaScript?</h1><p class="mute">Arrow functions, destructuring, spread &amp; rest · Async &amp; error handling · Objects &amp; optional chaining · map, filter, reduce &amp; find</p>
-<div class="chips"><div class="chip"><b>30</b>Multiple-choice</div><div class="chip"><b>20</b>Easy programs</div><div class="chip"><b>50</b>Total marks</div></div>
+function start(){app.innerHTML=`<div class="card pop"><h1>Ready for Practice Test 2?</h1><p class="mute">Arrow functions, destructuring, spread &amp; rest · Async &amp; error handling · Objects &amp; optional chaining · map, filter, reduce &amp; find</p>
+<div class="chips"><div class="chip"><b>${MN}</b>Multiple-choice</div><div class="chip"><b>${PN}</b>Easy programs</div><div class="chip"><b>${N}</b>Total marks</div></div>
 <ul class="rules"><li>One question at a time — press <b>Next</b> to move on, or <b>Previous</b> to go back.</li><li>MCQ: 1 mark each. Programs: 1 mark if all test cases pass.</li><li>For programs, use <b>Run tests</b> to check your code before moving on.</li><li>Question order is shuffled every time. Pass mark: 50%.</li></ul>
 <button class="btn" id="go">Start test →</button></div>`;document.getElementById("go").onclick=()=>{i=0;draw()}}
 function draw(){const x=items[i],last=i===N-1;let body;
@@ -168,7 +168,7 @@ async function finish(){const un=items.filter(x=>!answered(x)).length;if(un&&!co
  app.innerHTML=`<div class="card pop" style="text-align:center"><h1>${pass?"Well done! 🎉":"Keep practising 💪"}</h1><p class="mute">Your test is complete</p>
  <div class="ring"><svg width="170" height="170" viewBox="0 0 170 170"><defs><linearGradient id="g"><stop offset="0" stop-color="#3b5bdb"/><stop offset="1" stop-color="#7048e8"/></linearGradient></defs><circle class="bg" cx="85" cy="85" r="72"/><circle class="fg" id="fg" cx="85" cy="85" r="72" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg><div class="n"><span id="cnt">0</span><small>out of ${N}</small></div></div>
  <div class="pill ${pass?"ok":"bad"}">${pass?"PASS":"FAIL"}</div>
- <div class="stats"><div><b>${pct}%</b>Percentage</div><div><b>${g}</b>Grade</div><div><b>${ma} / 30</b>MCQ marks</div><div><b>${pa} / 20</b>Program marks</div></div>
+ <div class="stats"><div><b>${pct}%</b>Percentage</div><div><b>${g}</b>Grade</div><div><b>${ma} / ${MN}</b>MCQ marks</div><div><b>${pa} / ${PN}</b>Program marks</div></div>
  <button class="btn" id="re">↻ Retake (new order)</button></div><h2 style="margin:26px 0 12px">Review your answers</h2>`+
  items.map((x,k)=>`<details class="pop" ${x.ok?"":"open"}><summary><span class="m ${x.ok?"ok":"bad"}">${x.ok?"✓":"✗"}</span><span>${k+1}. ${E(x.q.length>90?x.q.slice(0,90)+"…":x.q)}</span></summary><div>`+(x.t==="m"?`<pre>${E(x.q)}</pre>Your answer: <b>${x.a===null?"not answered":E(x.o[x.a])}</b><br>Correct answer: <b>${E(x.c)}</b>`:`<pre>${E(x.q)}</pre>Your code:<pre>${E(x.code)}</pre>Sample solution:<pre>${E(x.s)}</pre>`)+`</div></details>`).join("");
  document.getElementById("re").onclick=()=>location.reload();scrollTo({top:0});
